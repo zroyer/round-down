@@ -1,16 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
-const INITIAL_ROUND_TIME = 180000;
-const INITIAL_BREAK_TIME = 30000;
+const INITIAL_ROUND_TIME = 5000;
+const INITIAL_BREAK_TIME = 3000;
 
 class Count extends React.Component {
 	render() {
-    const formatted = moment.utc(this.props.time).format('mm:ss');
+    const formattedTime = moment.utc(this.props.time).format('mm:ss');
 		return (
       <View>
-        <Text style={styles.timer}>{formatted}</Text>
+        <Text style={styles.timer}>{formattedTime}</Text>
       </View>
 		);
 	}
@@ -46,12 +46,8 @@ export default class App extends React.Component {
 		}
 	}
 
-	_startTimer = () => {
-		this.setState({ isTicking : true })
-	}
-
-	_pauseTimer = () => {
-		this.setState({ isTicking : false })
+	_toggleTimer = () => {
+		this.setState({ isTicking : !this.state.isTicking })
 	}
 
   _resetTimer = () => {
@@ -60,6 +56,24 @@ export default class App extends React.Component {
       round: 1,
       isTicking : false,
     });
+  }
+
+  _viewStyle = () => {
+    const viewStyle = {
+  		flex: 1,
+      justifyContent: 'center',
+  		backgroundColor: '#00BB6D',
+  	};
+
+    if (this.state.isBreak) {
+      viewStyle.backgroundColor = '#007BFF';
+    }
+
+    if (!this.state.isTicking) {
+      viewStyle.backgroundColor = '#A41EDD';
+    }
+
+    return viewStyle;
   }
 
 	render() {
@@ -71,39 +85,36 @@ export default class App extends React.Component {
     } = this.state;
 
 		return (
-			<View style={styles.container}>
-        <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+			<TouchableOpacity style={this._viewStyle()} onPress={this._toggleTimer}>
+        <View style={styles.container}>
           <Text style={styles.roundIndicator}>
             {isBreak ? 'Break' : 'Round'} {round}
           </Text>
         </View>
-				<View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+				<View style={styles.container}>
 					<Count time={this.state.time} sec={this.state.sec}/>
 				</View>
 				<View style={styles.buttons}>
-          {isTicking ? (
-            <Button title='⏸' onPress={this._pauseTimer} />
-          ) : (
-            <Button title='▶️' onPress={this._startTimer} />
-          )}
 					<Button title='🔄' onPress={this._resetTimer} />
 				</View>
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		justifyContent: 'center',
-	},
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   timer: {
-    fontSize: 70,
+    fontSize: 90,
+    color: '#fff',
   },
   roundIndicator: {
     fontSize: 36,
+    color: '#fff',
   },
   buttons: {
     justifyContent: 'space-around',
