@@ -3222,6 +3222,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment@^2.23.0:
+  version "2.23.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.23.0.tgz#759ea491ac97d54bac5ad776996e2a58cc1bc225"
+
 morgan@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.9.1.tgz#0a8d16734a1d9afbc824b99df87e738e58e2da59"
@@ -3745,10 +3749,6 @@ react-native-svg@8.0.8:
     color "^2.0.1"
     lodash "^4.16.6"
     pegjs "^0.10.0"
-
-react-native-timer-countdown@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-timer-countdown/-/react-native-timer-countdown-2.0.3.tgz#84866bf2dc0cdcec27d148290a8fd8977004d5ef"
 
 react-native-vector-icons@6.0.0:
   version "6.0.0"
