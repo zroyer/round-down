@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
-const INITIAL_ROUND_TIME = 5000;
-const INITIAL_BREAK_TIME = 3000;
+const INITIAL_ROUND_TIME = 180000;
+const INITIAL_BREAK_TIME = 30000;
 
 class Count extends React.Component {
 	render() {
@@ -19,7 +19,7 @@ class Count extends React.Component {
 export default class App extends React.Component {
 	constructor() {
 		super();
-		this.state={
+		this.state = {
       time: INITIAL_ROUND_TIME,
       round: 1,
       isBreak: false,
@@ -35,7 +35,7 @@ export default class App extends React.Component {
 		if(this.state.isTicking) {
 			if(this.state.time > 0) {
 				this.setState(prevState => ({ time : prevState.time - 1000 }));
-			};
+			}
 			if(this.state.time === 0) {
 				this.setState({
           time: this.state.isBreak ? INITIAL_ROUND_TIME : INITIAL_BREAK_TIME,
